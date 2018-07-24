@@ -1,6 +1,8 @@
 {
 	"author": "Oyelowo Oyedayo",
 	"name": "fcc-learn-npm-package-json",
+  "description": "This project opens doors!",
+  "keywords":["freecodecamp", "creative", "techRevolution"],
 	"dependencies": {
 		"express": "^4.14.0"
 	},
