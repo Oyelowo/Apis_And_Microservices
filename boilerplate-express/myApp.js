@@ -78,10 +78,19 @@ app.route('/name').get((req, res) => {
 
 /** 11) Get ready for POST Requests - the `body-parser` */
 // place it before all the routes !
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
 
 
 /** 12) Get data form POST  */
+app.post('/name', (req, res) => {
+    let jsonObj = `${req.body.first} ${req.body.last}`;
+    res.send({
+        name: jsonObj
+    });
+    console.log(jsonObj);
+})
 
 // This would be part of the basic setup of an Express app but to allow FCC to
 // run tests, the server is already active
