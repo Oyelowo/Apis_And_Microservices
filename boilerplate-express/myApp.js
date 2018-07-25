@@ -27,10 +27,12 @@ app.use(express.static(__dirname + "https://aromatic-dime.glitch.me/json"))
 // let MESSAGE_STYLE="uppercase";
 app.get("/json", (req, res) => {
     let message = "Hello json";
-    message = (process.env.MESSAGE_STYLE == "uppercase")
-        ? message.toUpperCase()
-        : message;
-    res.json({"message": message});
+    message = (process.env.MESSAGE_STYLE == "uppercase") ?
+        message.toUpperCase() :
+        message;
+    res.json({
+        "message": message
+    });
 });
 // app.use(express.static(__dirname + "https://aromatic-dime.glitch.me/json"))
 
@@ -43,17 +45,21 @@ app.use((req, res, next) => {
 })
 
 /** 8) Chaining middleware. A Time server */
-app.get('/now', (req,res, next)=>{
-  
+app.get('/now', (req, res, next) => {
+
     next();
-  }, (req, res)=>{
-   let time = new Date().toString();
-    console.log('time'+ time);
-    res.json({'time': time});
-  }
-         );
+}, (req, res) => {
+    let time = new Date().toString();
+    console.log('time' + time);
+    res.json({
+        'time': time
+    });
+});
 
 /** 9)  Get input from client - Route parameters */
+app.route('/:word/echo').get((req, res) => {
+    res.json({echo: req.params.word});
+  });
 
 /** 10) Get input from client - Query parameters */
 // /name?first=<firstname>&last=<lastname>
