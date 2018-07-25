@@ -1,5 +1,5 @@
 let express = require('express');
-var bodyParser = require('body-parser')
+let bodyParser = require('body-parser')
 let app = express();
 
 // --> 7)  Mount the Logger middleware here --> 11)  Mount the body-parser
