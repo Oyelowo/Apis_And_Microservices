@@ -43,6 +43,15 @@ app.use((req, res, next) => {
 })
 
 /** 8) Chaining middleware. A Time server */
+app.get('/now', (req,res, next)=>{
+  
+    next();
+  }, (req, res)=>{
+   let time = new Date().toString();
+    console.log('time'+ time);
+    res.json({'time': time});
+  }
+         );
 
 /** 9)  Get input from client - Route parameters */
 
