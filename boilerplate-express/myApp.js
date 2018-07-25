@@ -1,4 +1,5 @@
 let express = require('express');
+var bodyParser = require('body-parser')
 let app = express();
 
 // --> 7)  Mount the Logger middleware here --> 11)  Mount the body-parser
@@ -77,6 +78,7 @@ app.route('/name').get((req, res) => {
 
 /** 11) Get ready for POST Requests - the `body-parser` */
 // place it before all the routes !
+
 
 /** 12) Get data form POST  */
 
