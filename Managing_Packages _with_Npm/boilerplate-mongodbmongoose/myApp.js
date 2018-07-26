@@ -14,7 +14,6 @@
 let mongoose = require("mongoose");
 mongoose.connect(process.env.MONGO_URI);
 
-
 /** # SCHEMAS and MODELS #
 /*  ====================== */
 
@@ -34,6 +33,11 @@ mongoose.connect(process.env.MONGO_URI);
 // age :  number
 // favoriteFoods : array of strings (*)
 
+// Use the mongoose basic *schema types*. If you want you can also add more
+// fields, use simple validators like `required` or `unique`, and set
+// `default` values. See the [mongoose docs](http://mongoosejs.com/docs/guide.html).
+
+// <Your code here >
 let Schema = mongoose.Schema;
 let personSchema = new Schema({
   name: {
@@ -45,14 +49,6 @@ let personSchema = new Schema({
 });
 
 let Person = mongoose.model('Person', personSchema);
-
-// Use the mongoose basic *schema types*. If you want you can also add more
-// fields, use simple validators like `required` or `unique`, and set
-// `default` values. See the [mongoose docs](http://mongoosejs.com/docs/guide.html).
-
-// <Your code here >
-
-let Person /* = <Your Model> */
 
 // **Note**: GoMix is a real server, and in real servers interactions with
 // the db are placed in handler functions, to be called when some event happens
@@ -72,6 +68,7 @@ let Person /* = <Your Model> */
 
 /** # [C]RUD part I - CREATE #
 /*  ========================== */
+
 
 /** 3) Create and Save a Person */
 
@@ -93,7 +90,7 @@ let createAndSavePerson = function (done) {
   let person = new Person({
     name: 'Oyelowo',
     age: 24,
-    favoriteFoods: ['rice', 'plantain', 'cake', 'salad']
+    favoriteFoods: ['rice', 'plantain', 'cake']
   });
   person.save((error, data) => {
     if (error) {
@@ -120,11 +117,17 @@ let createManyPeople = function (arrayOfPeople, done) {
     done(null, data);
   })
 };
-
 /** # C[R]UD part II - READ #
 /*  ========================= */
 
 /** 5) Use `Model.find()` */
+
+// Find all the people having a given name, using `Model.find() -> [Person]`
+// In its simplest usage, `Model.find()` accepts a **query** document (a JSON
+// object ) as the first argument, and returns an **array** of matches.
+// It supports an extremely wide range of search options. Check it in the docs.
+// Use the function argument `personName` as search key.
+
 let findPeopleByName = function (personName, done) {
   Person.find({
     name: new RegExp(personName, 'i')
@@ -134,38 +137,6 @@ let findPeopleByName = function (personName, done) {
     }
     done(null, data);
   });
-
-};
-
-
-/** 6) Use `Model.findOne()` */
-
-// `Model.findOne()` behaves like `.find()`, but it returns **only one**
-// document, even if there are more. It is especially useful
-// when searching by properties that you have declared as unique.
-// Find just one person which has a certain food in her favorites,
-// using `Model.findOne() -> Person`. Use the function
-// argument `food` as search key
-
-let findOneByFood = function(food, done) {
-  Person.findOne({favoriteFoods:food}, (err, data)=>{
-       if(err) {
-         done(err); 
-      }
-     done(null,  data);
-  });
-
-};
-
-// Find all the people having a given name, using `Model.find() -> [Person]`
-// In its simplest usage, `Model.find()` accepts a **query** document (a JSON
-// object ) as the first argument, and returns an **array** of matches.
-// It supports an extremely wide range of search options. Check it in the docs.
-// Use the function argument `personName` as search key.
-
-let findPeopleByName = function (personName, done) {
-
-  done(null /*, data*/ );
 
 };
 
@@ -179,8 +150,14 @@ let findPeopleByName = function (personName, done) {
 // argument `food` as search key
 
 let findOneByFood = function (food, done) {
-
-  done(null /*, data*/ );
+  Person.findOne({
+    favoriteFoods: food
+  }, (err, data) => {
+    if (err) {
+      done(err);
+    }
+    done(null, data);
+  });
 
 };
 
@@ -193,10 +170,8 @@ let findOneByFood = function (food, done) {
 // using `Model.findById() -> Person`.
 // Use the function argument 'personId' as search key.
 
-let findPersonById = function (personId, done) {
-
-  done(null /*, data*/ );
-
+let findPersonById = (personId, done) => {
+  Person.findById(personId, (err, data) => err ? done(err) : done(null, data));
 };
 
 /** # CR[U]D part III - UPDATE # 
