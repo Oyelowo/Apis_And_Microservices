@@ -112,19 +112,30 @@ let createAndSavePerson = function (done) {
 // Create many people using `Model.create()`, using the function argument
 // 'arrayOfPeople'.
 
-let createManyPeople = function(arrayOfPeople, done) {
+let createManyPeople = function (arrayOfPeople, done) {
   Person.create(arrayOfPeople, (err, data) => {
-    if(err) {
-       done(err); 
+    if (err) {
+      done(err);
     }
-  done(null, data);
-  }) 
+    done(null, data);
+  })
 };
 
 /** # C[R]UD part II - READ #
 /*  ========================= */
 
 /** 5) Use `Model.find()` */
+let findPeopleByName = function (personName, done) {
+  Person.find({
+    name: new RegExp(personName, 'i')
+  }, (err, data) => {
+    if (err) {
+      done(err);
+    }
+    done(null, data);
+  });
+
+};
 
 // Find all the people having a given name, using `Model.find() -> [Person]`
 // In its simplest usage, `Model.find()` accepts a **query** document (a JSON
