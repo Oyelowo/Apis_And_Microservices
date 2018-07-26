@@ -34,8 +34,8 @@ mongoose.connect(process.env.MONGO_URI);
 // age :  number
 // favoriteFoods : array of strings (*)
 
-var Schema = mongoose.Schema;
-var personSchema = new Schema({
+let Schema = mongoose.Schema;
+let personSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -44,7 +44,7 @@ var personSchema = new Schema({
   favoriteFoods: [String],
 });
 
-var Person = mongoose.model('Person', personSchema);
+let Person = mongoose.model('Person', personSchema);
 
 // Use the mongoose basic *schema types*. If you want you can also add more
 // fields, use simple validators like `required` or `unique`, and set
@@ -52,7 +52,7 @@ var Person = mongoose.model('Person', personSchema);
 
 // <Your code here >
 
-var Person /* = <Your Model> */
+let Person /* = <Your Model> */
 
 // **Note**: GoMix is a real server, and in real servers interactions with
 // the db are placed in handler functions, to be called when some event happens
@@ -64,7 +64,7 @@ var Person /* = <Your Model> */
 // **Warning** - When interacting with remote services, **errors may occur** !
 
 // - Example -
-// var someFunc = function(done) {
+// let someFunc = function(done) {
 //   ... do something (risky) ...
 //   if(error) return done(error);
 //   done(null, result);
@@ -89,7 +89,7 @@ var Person /* = <Your Model> */
 //    ...do your stuff here...
 // });
 
-var createAndSavePerson = function (done) {
+let createAndSavePerson = function (done) {
   let person = new Person({
     name: 'Oyelowo',
     age: 24,
@@ -112,10 +112,13 @@ var createAndSavePerson = function (done) {
 // Create many people using `Model.create()`, using the function argument
 // 'arrayOfPeople'.
 
-var createManyPeople = function (arrayOfPeople, done) {
-
-  done(null /*, data*/ );
-
+let createManyPeople = function(arrayOfPeople, done) {
+  Person.create(arrayOfPeople, (err, data) => {
+    if(err) {
+       done(err); 
+    }
+  done(null, data);
+  }) 
 };
 
 /** # C[R]UD part II - READ #
@@ -129,7 +132,7 @@ var createManyPeople = function (arrayOfPeople, done) {
 // It supports an extremely wide range of search options. Check it in the docs.
 // Use the function argument `personName` as search key.
 
-var findPeopleByName = function (personName, done) {
+let findPeopleByName = function (personName, done) {
 
   done(null /*, data*/ );
 
@@ -144,7 +147,7 @@ var findPeopleByName = function (personName, done) {
 // using `Model.findOne() -> Person`. Use the function
 // argument `food` as search key
 
-var findOneByFood = function (food, done) {
+let findOneByFood = function (food, done) {
 
   done(null /*, data*/ );
 
@@ -159,7 +162,7 @@ var findOneByFood = function (food, done) {
 // using `Model.findById() -> Person`.
 // Use the function argument 'personId' as search key.
 
-var findPersonById = function (personId, done) {
+let findPersonById = function (personId, done) {
 
   done(null /*, data*/ );
 
@@ -190,8 +193,8 @@ var findPersonById = function (personId, done) {
 // manually mark it as edited using `document.markModified('edited-field')`
 // (http://mongoosejs.com/docs/schematypes.html - #Mixed )
 
-var findEditThenSave = function (personId, done) {
-  var foodToAdd = 'hamburger';
+let findEditThenSave = function (personId, done) {
+  let foodToAdd = 'hamburger';
 
   done(null /*, data*/ );
 };
@@ -211,8 +214,8 @@ var findEditThenSave = function (personId, done) {
 // to `findOneAndUpdate()`. By default the method
 // passes the unmodified object to its callback.
 
-var findAndUpdate = function (personName, done) {
-  var ageToSet = 20;
+let findAndUpdate = function (personName, done) {
+  let ageToSet = 20;
 
   done(null /*, data*/ );
 };
@@ -227,7 +230,7 @@ var findAndUpdate = function (personName, done) {
 // previous update methods. They pass the removed document to the cb.
 // As usual, use the function argument `personId` as search key.
 
-var removeById = function (personId, done) {
+let removeById = function (personId, done) {
 
   done(null /*, data*/ );
 
@@ -243,8 +246,8 @@ var removeById = function (personId, done) {
 // containing the outcome of the operation, and the number of items affected.
 // Don't forget to pass it to the `done()` callback, since we use it in tests.
 
-var removeManyPeople = function (done) {
-  var nameToRemove = "Mary";
+let removeManyPeople = function (done) {
+  let nameToRemove = "Mary";
 
   done(null /*, data*/ );
 };
@@ -256,7 +259,7 @@ var removeManyPeople = function (done) {
 
 // If you don't pass the `callback` as the last argument to `Model.find()`
 // (or to the other similar search methods introduced before), the query is
-// not executed, and can even be stored in a variable for later use.
+// not executed, and can even be stored in a letiable for later use.
 // This kind of object enables you to build up a query using chaining syntax.
 // The actual db search is executed when you finally chain
 // the method `.exec()`, passing your callback to it.
@@ -267,8 +270,8 @@ var removeManyPeople = function (done) {
 // Chain `.find()`, `.sort()`, `.limit()`, `.select()`, and then `.exec()`,
 // passing the `done(err, data)` callback to it.
 
-var queryChain = function (done) {
-  var foodToSearch = "burrito";
+let queryChain = function (done) {
+  let foodToSearch = "burrito";
 
   done(null /*, data*/ );
 };
