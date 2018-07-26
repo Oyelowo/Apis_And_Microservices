@@ -93,7 +93,7 @@ var createAndSavePerson = function (done) {
   let person = new Person({
     name: 'Oyelowo',
     age: 24,
-    favoriteFoods: ['rice', 'plantain', 'cake']
+    favoriteFoods: ['rice', 'plantain', 'cake', 'salad']
   });
   person.save((error, data) => {
     if (error) {
