@@ -137,6 +137,26 @@ let findPeopleByName = function (personName, done) {
 
 };
 
+
+/** 6) Use `Model.findOne()` */
+
+// `Model.findOne()` behaves like `.find()`, but it returns **only one**
+// document, even if there are more. It is especially useful
+// when searching by properties that you have declared as unique.
+// Find just one person which has a certain food in her favorites,
+// using `Model.findOne() -> Person`. Use the function
+// argument `food` as search key
+
+let findOneByFood = function(food, done) {
+  Person.findOne({favoriteFoods:food}, (err, data)=>{
+       if(err) {
+         done(err); 
+      }
+     done(null,  data);
+  });
+
+};
+
 // Find all the people having a given name, using `Model.find() -> [Person]`
 // In its simplest usage, `Model.find()` accepts a **query** document (a JSON
 // object ) as the first argument, and returns an **array** of matches.
