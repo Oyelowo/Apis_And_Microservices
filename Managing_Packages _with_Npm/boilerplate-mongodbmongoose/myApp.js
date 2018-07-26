@@ -90,9 +90,17 @@ var Person /* = <Your Model> */
 // });
 
 var createAndSavePerson = function (done) {
-
-  done(null /*, data*/ );
-
+  let person = new Person({
+    name: 'Oyelowo',
+    age: 24,
+    favoriteFoods: ['rice', 'plantain', 'cake']
+  });
+  person.save((error, data) => {
+    if (error) {
+      return done(error);
+    }
+    done(null, data);
+  });
 };
 
 /** 4) Create many People with `Model.create()` */
