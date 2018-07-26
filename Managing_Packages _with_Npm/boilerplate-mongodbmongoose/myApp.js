@@ -34,15 +34,17 @@ mongoose.connect(process.env.MONGO_URI);
 // age :  number
 // favoriteFoods : array of strings (*)
 
-class PersonModel {
-  constructor(name, age, favouriteFoods) {
-    this.name = name;
-    this.age = age;
-    this.favouriteFoods = favouriteFoods;
-  }
-}
+var Schema = mongoose.Schema;
+var personSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  age: Number,
+  favoriteFoods: [String],
+});
 
-let Person = new PersonModel("Oyelowo", 24, ["rice", "plantain", "apple"]) /* = <Your Model> */
+var Person = mongoose.model('Person', personSchema);
 
 // Use the mongoose basic *schema types*. If you want you can also add more
 // fields, use simple validators like `required` or `unique`, and set
