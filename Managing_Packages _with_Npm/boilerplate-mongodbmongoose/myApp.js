@@ -229,9 +229,17 @@ let findEditThenSave = (personId, done) => {
 // passes the unmodified object to its callback.
 
 
-let findAndUpdate = (personName, done) =>{
+let findAndUpdate = (personName, done) => {
   let ageToSet = 20;
-  Person.findOneAndUpdate({name: personName}, {$set: {age: ageToSet}}, {new : true}, ((err, data)=>done(null, data)));
+  Person.findOneAndUpdate({
+    name: personName
+  }, {
+    $set: {
+      age: ageToSet
+    }
+  }, {
+    new: true
+  }, ((err, data) => done(null, data)));
 };
 
 /** # CRU[D] part IV - DELETE #
@@ -244,8 +252,8 @@ let findAndUpdate = (personName, done) =>{
 // previous update methods. They pass the removed document to the cb.
 // As usual, use the function argument `personId` as search key.
 
-let removeById = (personId, done) =>{
-  Person.findOneAndRemove(personId , ((error, data)=>error ? done(error) : done(error, data)));
+let removeById = (personId, done) => {
+  Person.findOneAndRemove(personId, ((error, data) => error ? done(error) : done(error, data)));
 };
 
 // alternative
@@ -267,10 +275,11 @@ let removeById = (personId, done) =>{
 // containing the outcome of the operation, and the number of items affected.
 // Don't forget to pass it to the `done()` callback, since we use it in tests.
 
-let removeManyPeople = function (done) {
+let removeManyPeople = (done) => {
   let nameToRemove = "Mary";
-
-  done(null /*, data*/ );
+  Person.remove({
+    name: nameToRemove
+  }, ((error, data) => error ? done(error) : done(error, data)))
 };
 
 /** # C[R]UD part V -  More about Queries # 
