@@ -1,15 +1,15 @@
 /**********************************************
-* 4. Applied InfoSec Challenges
-* =============================
-***********************************************/
+ * 4. Applied InfoSec Challenges
+ * =============================
+ ***********************************************/
 
 let express = require('express'); // Do Not Edit
-let app = express();              // Do Not Edit
+let app = express(); // Do Not Edit
 
 // ----
 
 /** - Challenges - *
-********************/ 
+ ********************/
 
 /** 1) Install and require `helmet` */
 const helmet = require('helmet')
@@ -31,7 +31,9 @@ const helmet = require('helmet')
 // people off. e.g. `helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' })`
 
 // Use `helmet.hidePoweredBy()``
-app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }));
+app.use(helmet.hidePoweredBy({
+  setTo: 'PHP 4.2.0'
+}));
 
 
 
@@ -47,8 +49,10 @@ app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }));
 
 // We don't need our app to be framed, so you should use `helmet.frameguard()`
 // passing to it the configuration object `{action: 'deny'}`
-app.use(helmet.frameguard({action: 'deny'}));
- 
+app.use(helmet.frameguard({
+  action: 'deny'
+}));
+
 
 /** 4) Mitigate the risk of XSS - `helmet.xssFilter()` */
 
@@ -117,8 +121,11 @@ app.use(helmet.ieNoOpen());
 // set the field `force` to `true` in the config object. To not alter hyperdev security 
 // policy we will intercept and restore the header, after inspecting it for testing.
 
-let ninetyDaysInMilliseconds = 90*24*60*60*1000;
-app.use(helmet.hsts( {maxAge: ninetyDaysInMilliseconds, force: true}));
+let ninetyDaysInMilliseconds = 90 * 24 * 60 * 60 * 1000;
+app.use(helmet.hsts({
+  maxAge: ninetyDaysInMilliseconds,
+  force: true
+}));
 
 
 //**Note**:
@@ -184,7 +191,7 @@ app.use(helmet.noCache());
 
 
 
-/** TIP: */ 
+/** TIP: */
 
 // `app.use(helmet())` will automatically include all the middleware
 // presented above, except `noCache()`, and `contentSecurityPolicy()`,
@@ -204,6 +211,14 @@ app.use(helmet.noCache());
 //   },
 //  dnsPrefetchControl: false   // disable
 // }))
+
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    //      styleSrc: ['style.com'],
+    scriptSrc: ["'self'", 'trusted-cdn.com']
+  }
+}))
 
 // We introduced each middleware separately, for teaching purpose, and for
 // ease of testing. Using the 'parent' `helmet()` middleware is easiest, and
