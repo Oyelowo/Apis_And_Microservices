@@ -244,11 +244,18 @@ let findAndUpdate = (personName, done) =>{
 // previous update methods. They pass the removed document to the cb.
 // As usual, use the function argument `personId` as search key.
 
-let removeById = function (personId, done) {
-
-  done(null /*, data*/ );
-
+let removeById = (personId, done) =>{
+  Person.findOneAndRemove(personId , ((error, data)=>error ? done(error) : done(error, data)));
 };
+
+// alternative
+// let removeById = (personId, done) =>{  
+// Person.findByIdAndRemove(personId, (err, data) => {
+//   if (err) { 
+//     done(err) 
+// }
+//   done(null, data);
+// });
 
 /** 11) Delete many People */
 
