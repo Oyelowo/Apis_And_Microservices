@@ -228,10 +228,10 @@ let findEditThenSave = (personId, done) => {
 // to `findOneAndUpdate()`. By default the method
 // passes the unmodified object to its callback.
 
-let findAndUpdate = function (personName, done) {
-  let ageToSet = 20;
 
-  done(null /*, data*/ );
+let findAndUpdate = (personName, done) =>{
+  let ageToSet = 20;
+  Person.findOneAndUpdate({name: personName}, {$set: {age: ageToSet}}, {new : true}, ((err, data)=>done(null, data)));
 };
 
 /** # CRU[D] part IV - DELETE #
