@@ -31,6 +31,7 @@ const helmet = require('helmet')
 // people off. e.g. `helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' })`
 
 // Use `helmet.hidePoweredBy()``
+app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }));
 
 
 
