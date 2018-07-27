@@ -83,6 +83,7 @@ app.use(helmet.xssFilter());
 // instructing the browser to not bypass the provided `Content-Type`.
 
 // Use `helmet.noSniff()`
+app.use(helmet.noSniff());
 
 
 
