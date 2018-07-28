@@ -5,6 +5,7 @@
 
 let express = require('express'); // Do Not Edit
 let app = express(); // Do Not Edit
+let bcrypt = require('bcrypt');
 
 // ----
 
